@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  minitodo:
+    image: ${DOCKER_REGISTRY-}minitodo
+    build:
+      context: .
+      dockerfile: minitodo/Dockerfile

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "minitodo", "minitodo\minitodo.csproj", "{99097ABF-8817-4224-B73B-5EEC5A1B33AC}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EAB2ADE2-730C-4B1A-9779-AD509E7BEDBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99097ABF-8817-4224-B73B-5EEC5A1B33AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99097ABF-8817-4224-B73B-5EEC5A1B33AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99097ABF-8817-4224-B73B-5EEC5A1B33AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99097ABF-8817-4224-B73B-5EEC5A1B33AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAB2ADE2-730C-4B1A-9779-AD509E7BEDBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAB2ADE2-730C-4B1A-9779-AD509E7BEDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAB2ADE2-730C-4B1A-9779-AD509E7BEDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAB2ADE2-730C-4B1A-9779-AD509E7BEDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CF76512-3528-40E0-A17B-8DE3577E770F}
+	EndGlobalSection
+EndGlobal
