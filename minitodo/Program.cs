@@ -1,8 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using minitodo.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+string connectionString = builder.Configuration.GetConnectionString("DefaultConntection")!;
+builder.Services.AddDbContext<AppDbContext>(
+    options=>options.UseSqlite(connectionString));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
