@@ -7,14 +7,16 @@ namespace minitodo.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly AppDbContext db;
+        public HomeController(ILogger<HomeController> logger, AppDbContext db)
         {
             _logger = logger;
+            this.db = db;   
         }
 
         public IActionResult Index()
         {
+            db.Users.FirstOrDefault();
             return View();
         }
 
