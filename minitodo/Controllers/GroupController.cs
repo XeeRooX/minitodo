@@ -14,35 +14,36 @@ namespace minitodo.Controllers
         }
 
         [HttpPost]
-        public JsonResult Create(string nameGroup)
+        public IActionResult Create(string nameGroup)
         {
             var user = _context.Users.Find(1);
             if (nameGroup == null)
-                return Json(false);
-
+                return BadRequest("no name group");
+            if(_context.Groups.FirstOrDefault(a=>a.Name == nameGroup) != null)
+                return BadRequest("group already exists");
             var group = new Models.Group { Name = nameGroup, User = user };
             _context.Groups.Add(group);
             _context.SaveChanges();
             return Json(nameGroup);
         }
         [HttpPost]
-        public JsonResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var user = _context.Users.Find(1);
             var group = _context.Groups.Find(id);
             if (group == null || group.UserId != user.Id)
-                return Json(false);
+                return BadRequest("no group");
             _context.Groups.Remove(group);
             _context.SaveChanges();
             return Json(true);
         }
         [HttpPost]
-        public JsonResult Edit(int id, string nameGroup)
+        public IActionResult Edit(int id, string nameGroup)
         {
             var user = _context.Users.Find(1);
             var group = _context.Groups.Find(id);
             if (nameGroup == null || group == null || group.UserId != user.Id)
-                return Json(false);
+                return BadRequest("no group");
 
             group.Name = nameGroup;
             _context.SaveChanges();
