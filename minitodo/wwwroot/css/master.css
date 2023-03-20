@@ -1,0 +1,56 @@
+﻿.left-panel {
+    width: 20rem;
+    background: #efefef;
+}
+
+.group-item {
+    background: #efefef;
+    color: #1b1b1b;
+    border-radius: 0px;
+    border: none;
+}
+
+.group-item:hover {
+    background: #cdcdcd;
+    color: #1b1b1b;
+}
+
+.add-group-btn {
+    border-radius: 15px;
+    background-color: #4d5465;
+    color: #efefef;
+}
+.add-group-btn:hover {
+    background-color: #32383c;
+    color: #efefef;
+}
+
+.input-add-group {
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.btn-add {
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.right-panel {
+}
+
+::-webkit-scrollbar {
+    width: .45rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(27, 27, 27, .4);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html{
+    height: 100vh;
+}
