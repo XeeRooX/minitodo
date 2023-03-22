@@ -5,30 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - minitodo</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/minitodo.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/master.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="minitodo" width="30" height="24">
-                </a>
-            </div>
-        </nav>
-    </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="row g-0">
+        <div class="col-1 left-panel">
+            <div class="p-0">
+                <div class="row">
+                    <div class="col">
+                        <div class="text-center p-0 d-flex align-items-center justify-content-center p-0 m-1" style="width:75px; height: 75px; padding:0; margin-left:20px">
+                            <img src="https://picsum.photos/id/40/75" width="50px" style="border-radius:50%" />
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center justify-content-center p-0">
+                        <div style="max-width: 150px">
+                            <div class="row ">
+                                <p class="m-0">Вася Пупкин</p>
+                            </div>
+                            <div class="row">
+                                <p class="m-0">vasya123@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center justify-content-center p-0">
+                        <div class="row">
+                            <img src="~/imgs/logout.png" style="width:45px" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-0" />
+            <div class="overflow-auto " style="height: calc(100vh - 100px);">
+                <div class="list-group groups ">
+                    <a href="#" class="list-group-item group-item">
+                        Группа 1
+                    </a>
+                    <a href="#" class="list-group-item group-item">
+                        Группа 2
+                    </a>
+
+                    <div>
+                        <div class="p-4 d-block" id="add-task-btn-div">
+                            <button type="button" class="btn p-2 px-4 m-0 add-group-btn" style="width: 100%; margin: 0px" id="add-task-group-btn">Создать группу дел</button>
+                        </div>
+                        <div>
+                            <div class="input-group mb-3 px-4 pt-4 d-none" id="name-input-group">
+                                <input type="text" id="name-input" class="form-control input-name-gr" placeholder="Введите название" aria-label="Ввелите название" aria-describedby="add-grpup-btn">
+                                <button class="btn btn-outline-secondary btn-add" type="button" id="add-grpup-btn">Добавить</button>
+                            </div>
+                            <div class="px-4 d-none" id="cancel-btn-div">
+                                <button class="btn btn-secondary w-100 add-group-btn" id="cancel-btn">Отменить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="overflow-auto right-panel p-3" style="height: 100vh">
+               
+                <main role="main" class="pb-3">
+                    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
     </div>
 
+  
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/master.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

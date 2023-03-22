@@ -4,7 +4,7 @@ using minitodo.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 string connectionString = builder.Configuration.GetConnectionString("DefaultConntection")!;
 builder.Services.AddDbContext<AppDbContext>(
