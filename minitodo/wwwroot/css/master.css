@@ -35,6 +35,10 @@
     border-top-right-radius: 15px;
 }
 
+.ref-group-item {
+    color: #1b1b1b;
+    text-decoration: none;
+}
 .right-panel {
 }
 

@@ -24,7 +24,7 @@ namespace minitodo.Controllers
             var group = new Models.Group { Name = nameGroup, User = user };
             _context.Groups.Add(group);
             _context.SaveChanges();
-            return Json(new {id = group.Id, namegr = nameGroup });
+            return Json(new {id = group.Id, name = nameGroup });
         }
         [HttpPost]
         public IActionResult Delete(int id)

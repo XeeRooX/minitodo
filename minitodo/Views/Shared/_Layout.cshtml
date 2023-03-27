@@ -37,14 +37,16 @@
             </div>
             <hr class="mt-0" />
             <div class="overflow-auto " style="height: calc(100vh - 100px);">
-                <div class="list-group groups ">
-                    <a href="#" class="list-group-item group-item">
-                        Группа 1
-                    </a>
-                    <a href="#" class="list-group-item group-item">
-                        Группа 2
-                    </a>
+                <div class="list-group  ">
+                    <div class="groups">
 
+                        <div class="list-group-item group-item d-none group-example">
+                            <button id="" href="#" class="name-group btn w-auto mx-auto p-0 ref-group-item"> Группа 1</button>
+                            <button id="" type="button" class="btn p-0 m-0 float-end del-btn" style="width:25px; height:25px"><img class="p-0 m-0" src="~/png/trash.png" width="20px" /></button>
+                        </div>
+
+                       
+                    </div>
                     <div>
                         <div class="p-4 d-block" id="add-task-btn-div">
                             <button type="button" class="btn p-2 px-4 m-0 add-group-btn" style="width: 100%; margin: 0px" id="add-task-group-btn">Создать группу дел</button>
@@ -69,7 +71,7 @@
         </div>
         <div class="col">
             <div class="overflow-auto right-panel p-3" style="height: 100vh">
-               
+
                 <main role="main" class="pb-3">
                     <script src="~/lib/jquery/dist/jquery.min.js"></script>
                     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -80,7 +82,7 @@
         </div>
     </div>
 
-  
+
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/master.js"></script>
