@@ -40,12 +40,22 @@
                 <div class="list-group  ">
                     <div class="groups">
 
-                        <div class="list-group-item group-item d-none group-example" id="">
-                            <button id="" href="#" class="name-group btn w-auto mx-auto p-0 ref-group-item"> Группа 1</button>
-                            <button id="" type="button" class="btn p-0 m-0 float-end del-btn" style="width:25px; height:25px"><img class="p-0 m-0" src="~/png/trash.png" width="20px" /></button>
+                        <div id="" class="list-group-item group-item item-group d-none group-example">
+                            <div class="default-panel">
+                                <button id="" href="#" class="name-group btn w-75 mx-auto p-0 ref-group-item" style="text-align:left"> Группа 1</button>
+                                <button id="" type="button" class="btn p-0 m-0 float-end del-btn" style="width:25px; height:25px"><img class="p-0 m-0" src="~/png/trash.png" width="20px" /></button>
+                                <button id="" type="button" class="btn p-0 m-0 mx-2 float-end edit-btn" style="width:25px; height:25px"><img class="p-0 m-0" src="~/png/edit.png" width="20px" /></button>
+                            </div>
+                            <div id="" class="input-group m-0 p-0 d-none edit-panel">
+                                <input type="text" class="form-control" placeholder="Введите название..." value="" aria-label="Редактирование" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary save-edit-btn" type="button">Сохранить</button>
+                                </div>
+                            </div>
+
                         </div>
 
-                       
+
                     </div>
                     <div>
                         <div class="p-4 d-block" id="add-task-btn-div">
