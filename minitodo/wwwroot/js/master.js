@@ -11,7 +11,9 @@
 }
 
 async function SelectItem() {
-    var idGroup = $(this).parent().attr("id");
+    //var idGroup = $(this).parent().attr("id");
+    var idGroup = $(this).closest('.group-item').attr("id");
+
     var groupName = $(this).text();
 
     $(".group-name").text(groupName);
