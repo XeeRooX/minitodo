@@ -5,7 +5,21 @@
     $(".groups").on('click', ".del-btn", DeleteItem);
     $(".groups").on('click', ".edit-btn", await EditNameGroup);
     $(".groups").on('click', ".save-edit-btn", await SaveEditGroup);
+    
     await GetAllGroups();
+    await SetInfoUser();
+}
+
+async function SetInfoUser() {
+    console.log("dfsf");
+    $.post("User/GetAuthoriseInfo")
+        .done(function (data) {
+            console.log(data.name);
+            $('.user-name').text(data.name + " " + data.surname);
+            $('.user-email').text(data.email);
+        }).fail(function (xhr) {
+            alert("error: " + xhr.responseText)
+        });
 }
 
 async function AddGroupHandler() {
@@ -14,7 +28,6 @@ async function AddGroupHandler() {
         .done(function (data, statusText) {
             console.log("ok " + groupName);
             console.log(data);
-            $("#group-name").text(groupName);
             AddGroupToList(data);
         }).fail(function (xhr, textStatus, errorThrown) { alert("error: " + xhr.responseText); })
         ;

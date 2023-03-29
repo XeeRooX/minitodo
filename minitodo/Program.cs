@@ -13,7 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/login";
+        options.LoginPath = "/User/Login";
         options.AccessDeniedPath = "/accessdenied";
     });
 builder.Services.AddAuthorization();

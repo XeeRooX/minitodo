@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using minitodo.Models;
 using System.Text.RegularExpressions;
 using minitodo.Dtos;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+
 namespace minitodo.Controllers
 {
     public class GroupController : Controller
@@ -13,10 +16,12 @@ namespace minitodo.Controllers
             _context = context;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(string nameGroup)
         {
-            var user = _context.Users.Find(1);
+               
+            var user = _context.Users.FirstOrDefault(a=>a.Email == HttpContext.User.Identity.Name);
             if (nameGroup == null)
                 return BadRequest("no name group");
             if(_context.Groups.FirstOrDefault(a=>a.Name == nameGroup) != null)
@@ -26,10 +31,11 @@ namespace minitodo.Controllers
             _context.SaveChanges();
             return Json(new {id = group.Id, name = nameGroup });
         }
+        [Authorize]
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var user = _context.Users.Find(1);
+            var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
             var group = _context.Groups.Find(id);
             if (group == null || group.UserId != user.Id)
                 return BadRequest("no group");
@@ -37,10 +43,11 @@ namespace minitodo.Controllers
             _context.SaveChanges();
             return Json(true);
         }
+        [Authorize]
         [HttpPost]
         public IActionResult Edit(int id, string nameGroup)
         {
-            var user = _context.Users.Find(1);
+            var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
             var group = _context.Groups.Find(id);
             if (nameGroup == null || group == null || group.UserId != user.Id)
                 return BadRequest("no group");
@@ -49,10 +56,11 @@ namespace minitodo.Controllers
             _context.SaveChanges();
             return Json(nameGroup);
         }
+        [Authorize]
         [HttpGet]
         public JsonResult Read()
         {
-            var user = _context.Users.Find(1);
+            var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
             var groups = _context.Groups.Where(a => a.UserId == user.Id).ToList();
             var groupList = new List<GroupModel>();
             foreach (var group in groups)

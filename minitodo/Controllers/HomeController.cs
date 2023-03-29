@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using minitodo.Models;
 using System.Diagnostics;
 
@@ -14,6 +15,7 @@ namespace minitodo.Controllers
             this.db = db;   
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             db.Users.FirstOrDefault();

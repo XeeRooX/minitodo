@@ -20,34 +20,55 @@ namespace minitodo.Controllers
             _context = context;
         }
 
-        public IActionResult Create([FromBody] UserModel user)
+
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(UserModel user)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Bad content");
+                ViewBag.Message = "Bad content";
+                return View();//BadRequest("Bad content");
             }
             if (_context.Users.FirstOrDefault(a => a.Email == user.Email) != null)
             {
-                return BadRequest("User with the same email arleady exists");
+                ViewBag.Message = "User with the same email arleady exists";
+                return View();//BadRequest("User with the same email arleady exists");
             }
             User addUser = new User() { Name = user.Name, Email = user.Email, Surname = user.Surname, Password = GetHash(user.Password) };
             _context.Add(addUser);
             _context.SaveChanges();
-            return Json(user);
+            return RedirectToAction("Login");//Json(user);
         }
+        //Get
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public IActionResult Login([FromBody] UserLogin userLogin)
+        public IActionResult Login( UserLogin userLogin)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Bad login and password!");
+                ViewBag.Message = "Bad login and password!";
+                return View();//BadRequest("Bad login and password!");
             }
             var user = _context.Users.FirstOrDefault(a => a.Email == userLogin.Email);
             if (user == null)
-                return BadRequest("Bad email");
+            {
+                ViewBag.Message = "Bad email";
+                return View();//BadRequest("Bad email");
+            }
             if (user.Password != GetHash(userLogin.Password))
             {
-                return BadRequest("Bad password");
+                ViewBag.Message = "Bad password";
+                return View();//BadRequest("Bad password");
             }
             UserModel userModel = new UserModel() { Name = user.Name, Id = user.Id, Password = "", Email = user.Email, Surname = user.Surname };
             var claims = new List<Claim>
@@ -57,14 +78,14 @@ namespace minitodo.Controllers
             };
             var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            HttpContext.SignInAsync(claimsPrincipal); 
-            return Json(userModel);
+            HttpContext.SignInAsync(claimsPrincipal);
+            return RedirectToAction("Index", "Home");//Json(userModel);
         }
         [Authorize(Roles = "user")]
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Json("ok");
+            return RedirectToAction("Login");//Json("ok");
         }
 
         [Authorize(Roles = "user")]
