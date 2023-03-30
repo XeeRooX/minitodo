@@ -7,15 +7,63 @@
     $(".groups").on('click', ".save-edit-btn", await SaveEditGroup);
     $(".groups").on('click', ".del-btn", DeleteItem);
     $(".groups").on('click', '.ref-group-item', SelectItem)
+    $(".fav-tasks-btn").click(await FavoriteShow);
     await GetAllGroups();
 }
+
+async function FavoriteShow() {
+
+    $(".group-name").text("Избранные задачи");
+    $(".group-name").removeClass("d-none");
+    $(".new-task-input").addClass("d-none");
+    $(".conf-task-drop").addClass("d-none");
+    //conf-task-drop
+
+    ClearTasks();
+
+    $.ajax({
+        url: "Task/GetFavorited",
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+    }).done(function (data) {
+        console.log("Ok favorited!", data);
+
+        if (data.length == 0) {
+            PrintFavoritedEmptyMsg();
+        } else {
+            $(".msg-body").addClass("d-none");
+        }
+
+        for (let i = 0; i < data.length; i++) {
+            PrintNotConfTasks(data[i]);
+        }
+    }).fail(function (xhr) {
+        alert(xhr.responseText);
+    });
+} 
+
+
+function PrintFavoritedEmptyMsg() {
+    $(".message").text("Список избранных задач пуст");
+    $(".msg-body").removeClass("d-none");
+}
+
+function PrintGroupEmptyMsg() {
+    $(".message").text('Список задач пуст. Введите задачи в поле выше и нажмите кнопку "Добавить"');
+    $(".msg-body").removeClass("d-none");
+}
+
 
 async function SelectItem() {
     //var idGroup = $(this).parent().attr("id");
     var idGroup = $(this).closest('.group-item').attr("id");
 
-    var groupName = $(this).text();
 
+    var groupName = $(this).text();
+    $(".group-name").removeClass("d-none");
+
+    $(".new-task-input").removeClass("d-none");
+    $(".conf-task-drop").removeClass("d-none");
     $(".group-name").text(groupName);
     $(".group-name").attr("id", idGroup);
     $(".name-task-input").val('');
@@ -32,7 +80,12 @@ async function SelectItem() {
             GroupId: Number(idGroup)
         }) 
     }).done(function (data) {
-        
+        if (data.length == 0) {
+            PrintGroupEmptyMsg();
+        } else {
+            $(".msg-body").addClass("d-none");
+        }
+
         for (let i = 0; i < data.length; i++) {
             PrintNotConfTasks(data[i]);
         }
@@ -140,7 +193,7 @@ async function AddGroupHandler() {
 
 function DeleteItem() {
     var idDel = $(this).attr("id");
-    console.log(idDel);
+    console.log("idDel", idDel);
     console.log('ddfgdg');
     $.post("Group/Delete", { id: idDel })
         .done(function (data, statusText) {
@@ -193,12 +246,20 @@ async function GetAllGroups() {
     console.log('sdfsf');
     $.get("Group/Read")
         .done(function (data, statusText) {
+            if (data.length == 0) {
+                ShowNoGroupsMsg();
+            } 
             console.log(data);
             for (let i = 0; i < data.length; i++) {
                 AddGroupToList(data[i]);
             }
         }).fail(function (xhr, textStatus, errorThrown) { alert("error: " + xhr.responseText); })
         ;
+}
+
+function ShowNoGroupsMsg() {
+    $(".message").text("Список групп пуст. Создайте новую.");
+    $(".msg-body").removeClass("d-none");
 }
 
 async function CancelTaskAddHandler() {
