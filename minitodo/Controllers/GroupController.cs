@@ -23,7 +23,7 @@ namespace minitodo.Controllers
                
             var user = _context.Users.FirstOrDefault(a=>a.Email == HttpContext.User.Identity.Name);
             if (nameGroup == null)
-                return BadRequest("Название группы пусто");
+                return BadRequest("no name group");
             if(_context.Groups.FirstOrDefault(a=>a.Name == nameGroup) != null)
                 return BadRequest("Группа уже существует");
             var group = new Models.Group { Name = nameGroup, User = user };
