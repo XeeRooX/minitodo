@@ -28,11 +28,6 @@ namespace minitodo.Controllers
                 return BadRequest("Group not exist");
             }
 
-            if (group.Tasks.FirstOrDefault(t => t.Description == task.TaskTitle) != null)
-            {
-                return BadRequest("Group already exist");
-            }
-
             var task_model = new Models.Task()
             {
                 Description = task.TaskTitle
@@ -120,7 +115,7 @@ namespace minitodo.Controllers
             return Json(allTasks);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult GetConfirmed([FromBody] GetTask groupInfo)
         {
             if (groupInfo.GroupId == 0)
@@ -150,10 +145,10 @@ namespace minitodo.Controllers
             return Json(confTasks);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult GetNotConfirmed([FromBody] GetTask groupInfo)
         {
-            if (groupInfo.GroupId == 0)
+            if (groupInfo == null || groupInfo.GroupId == 0)
             {
                 return BadRequest("Incorrect parametr");
             }
@@ -238,6 +233,8 @@ namespace minitodo.Controllers
                 return BadRequest("Task not exist");
             }
             task.IsDone = true;
+            task.IsFavorite = false;
+
             db.SaveChanges();
 
             return Ok();
