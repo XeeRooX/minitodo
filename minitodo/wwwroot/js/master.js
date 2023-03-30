@@ -11,7 +11,6 @@
 }
 
 async function SetInfoUser() {
-    console.log("dfsf");
     $.post("User/GetAuthoriseInfo")
         .done(function (data) {
             console.log(data.name);
