@@ -37,7 +37,7 @@ namespace minitodo.Controllers
             }
             if (_context.Users.FirstOrDefault(a => a.Email == user.Email) != null)
             {
-                ViewBag.Message = "User with the same email arleady exists";
+                ViewBag.Message = "Пользователь с таким email уже существует";
                 return View();//BadRequest("User with the same email arleady exists");
             }
             User addUser = new User() { Name = user.Name, Email = user.Email, Surname = user.Surname, Password = GetHash(user.Password) };
@@ -56,18 +56,18 @@ namespace minitodo.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Message = "Bad login and password!";
+                ViewBag.Message = "Неверный пароль или email!";
                 return View();//BadRequest("Bad login and password!");
             }
             var user = _context.Users.FirstOrDefault(a => a.Email == userLogin.Email);
             if (user == null)
             {
-                ViewBag.Message = "Bad email";
+                ViewBag.Message = "Нет пользователя с таким email";
                 return View();//BadRequest("Bad email");
             }
             if (user.Password != GetHash(userLogin.Password))
             {
-                ViewBag.Message = "Bad password";
+                ViewBag.Message = "Неверный пароль";
                 return View();//BadRequest("Bad password");
             }
             UserModel userModel = new UserModel() { Name = user.Name, Id = user.Id, Password = "", Email = user.Email, Surname = user.Surname };
@@ -94,14 +94,14 @@ namespace minitodo.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest("Bad login and password!");
+                return BadRequest("Неверный пароль или email!");
             }
             var user = _context.Users.FirstOrDefault(a => a.Email == userLogin.Email);
             if (user == null)
-                return BadRequest("Bad email");
+                return BadRequest("Нет пользователя с таким email");
             if (user.Password != GetHash(userLogin.Password))
             {
-                return BadRequest("Bad password");
+                return BadRequest("Неверный пароль");
             }
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             _context.Users.Remove(user);
@@ -114,6 +114,8 @@ namespace minitodo.Controllers
         {
             var email = HttpContext.User.Identity.Name;
             var user = _context.Users.FirstOrDefault(a => a.Email == email);
+            if (user == null)
+                return BadRequest("user null");
             var userModel = new UserModel() { Name = user.Name, Email = user.Email, Surname = user.Surname, Id  = user.Id, Password = ""};
             return Json(userModel);
         }
