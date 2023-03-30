@@ -40,8 +40,8 @@ namespace minitodo.Controllers
             if (group == null || group.UserId != user.Id)
                 return BadRequest("no group");
             _context.Groups.Remove(group);
-            _context.SaveChanges();
-            return Json(true);
+            _context.SaveChangesAsync();
+            return Ok();
         }
         [Authorize]
         [HttpPost]

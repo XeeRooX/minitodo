@@ -28,7 +28,7 @@ function ConfirmClick() {
     var taskId = $(this).closest(".noconf-task").attr("id");
     var descr = $(this).parent().children(".task-label").text();
     var task = $(this).closest(".noconf-task");
-    
+
 
     $.ajax({
         url: "Task/SetConfirmed",
@@ -53,6 +53,7 @@ function ConfirmClick() {
 function TaskCreateHandler() {
     var groupId = $(".group-name").attr("id");
     var taskTitle = $(".name-task-input").val();
+
     if (!taskTitle) {
         alert("Введите наименование задачи");
         return;
@@ -80,7 +81,7 @@ function TaskCreateHandler() {
         alert(xhr.responseText);
     });
 
-    console.log(taskTitle);
+    $(".msg-body").addClass("d-none");
 }
 
 function UpdateNotConfTasks(data) {

@@ -3,15 +3,15 @@
 }
 <link rel="stylesheet" href="~/css/index.css" />
 <div class="container-flex">
-    <h2 id="" class="group-name">Group 1</h2>
+    <h2 id="" class="group-name d-none">Group 1</h2>
 
-    <div class="input-group mb-3 py-2">
+    <div class="input-group mb-3 pt-3 new-task-input d-none">
         <input type="text" class="form-control name-task-input" placeholder="Новая задача" aria-label="Новая задача" aria-describedby="basic-addon2">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary task-create-btn" type="button">Добавить</button>
         </div>
     </div>
-    <ul class="list-group noconf-task-list">
+    <ul class="list-group noconf-task-list pt-3">
         <li class="noconf-task-temp d-none noconf-task" id="">
             <div class="form-check">
                 <input class="form-check-input noconf-task-chbx" type="checkbox" value="" id="">
@@ -21,12 +21,15 @@
                 <button type="button" class="btn p-0 m-0 float-end star-toggle favorites-btn" style="width:25px; height:25px"><img class="p-0 m-0" src="~/png/unStar.png" width="20px" /></button>
             </div>
         </li>
-        
-        
     </ul>
 
+    <div class="card mt-3 msg-body">
+        <div class="card-body text-center">
+            <h6 class="m-0 py-4 message ">Для начала работы выберите группу</h6>
+        </div>
+    </div>
 
-    <div id="accordion" class="pt-3">
+    <div id="accordion" class="pt-3 conf-task-drop d-none">
         <div class="">
             <div class="">
 
@@ -51,6 +54,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 <script src="~/js/index.js"></script>
