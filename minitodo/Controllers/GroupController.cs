@@ -22,6 +22,8 @@ namespace minitodo.Controllers
         {
                
             var user = _context.Users.FirstOrDefault(a=>a.Email == HttpContext.User.Identity.Name);
+            if (user == null)
+                return BadRequest("user null");
             if (nameGroup == null)
                 return BadRequest("no name group");
             if(_context.Groups.FirstOrDefault(a=>a.Name == nameGroup && a.UserId==user.Id) != null)
@@ -36,6 +38,8 @@ namespace minitodo.Controllers
         public IActionResult Delete(int id)
         {
             var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            if (user == null)
+                return BadRequest("user null");
             var group = _context.Groups.Find(id);
             if (group == null || group.UserId != user.Id)
                 return BadRequest("no group");
@@ -48,6 +52,8 @@ namespace minitodo.Controllers
         public IActionResult Edit(int id, string nameGroup)
         {
             var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            if (user == null)
+                return BadRequest("user null");
             var group = _context.Groups.Find(id);
             if (nameGroup == null || group == null || group.UserId != user.Id)
                 return BadRequest("no group");
@@ -58,9 +64,12 @@ namespace minitodo.Controllers
         }
         [Authorize]
         [HttpGet]
-        public JsonResult Read()
+        public IActionResult Read()
         {
             var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            if (user == null)
+                return BadRequest("user null");
+
             var groups = _context.Groups.Where(a => a.UserId == user.Id).ToList();
             var groupList = new List<GroupModel>();
             foreach (var group in groups)
