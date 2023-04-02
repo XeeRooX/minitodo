@@ -4,5 +4,6 @@ services:
   minitodo:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings:DefaultConntection=Data Source= ./Data/mydb.db;
     ports:
       - "5000:80"

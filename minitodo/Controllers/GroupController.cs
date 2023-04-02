@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using minitodo.Models;
 using System.Text.RegularExpressions;
 using minitodo.Dtos;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+
 namespace minitodo.Controllers
 {
     public class GroupController : Controller
@@ -13,46 +16,60 @@ namespace minitodo.Controllers
             _context = context;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(string nameGroup)
         {
-            var user = _context.Users.Find(1);
+               
+            var user = _context.Users.FirstOrDefault(a=>a.Email == HttpContext.User.Identity.Name);
+            if (user == null)
+                return BadRequest("user null");
             if (nameGroup == null)
                 return BadRequest("no name group");
-            if(_context.Groups.FirstOrDefault(a=>a.Name == nameGroup) != null)
-                return BadRequest("group already exists");
-            var group = new Models.Group { Name = nameGroup, User = user };
+            if(_context.Groups.FirstOrDefault(a=>a.Name == nameGroup && a.UserId==user!.Id) != null)
+                return BadRequest("Группа уже существует");
+            var group = new Models.Group { Name = nameGroup, User = user! };
             _context.Groups.Add(group);
             _context.SaveChanges();
             return Json(new {id = group.Id, name = nameGroup });
         }
+        [Authorize]
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var user = _context.Users.Find(1);
+            var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            if (user == null)
+                return BadRequest("user null");
             var group = _context.Groups.Find(id);
-            if (group == null || group.UserId != user.Id)
+            if (group == null || group.UserId != user!.Id)
                 return BadRequest("no group");
             _context.Groups.Remove(group);
-            _context.SaveChanges();
-            return Json(true);
+            _context.SaveChangesAsync();
+            return Ok();
         }
+        [Authorize]
         [HttpPost]
         public IActionResult Edit(int id, string nameGroup)
         {
-            var user = _context.Users.Find(1);
+            var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            if (user == null)
+                return BadRequest("user null");
             var group = _context.Groups.Find(id);
-            if (nameGroup == null || group == null || group.UserId != user.Id)
+            if (nameGroup == null || group == null || group.UserId != user!.Id)
                 return BadRequest("no group");
 
             group.Name = nameGroup;
             _context.SaveChanges();
             return Json(nameGroup);
         }
+        [Authorize]
         [HttpGet]
-        public JsonResult Read()
+        public IActionResult Read()
         {
-            var user = _context.Users.Find(1);
+            var user = _context.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            if (user == null)
+                return BadRequest("user null");
+
             var groups = _context.Groups.Where(a => a.UserId == user.Id).ToList();
             var groupList = new List<GroupModel>();
             foreach (var group in groups)
