@@ -112,7 +112,7 @@ namespace minitodo.Controllers
         [Authorize(Roles = "user")]
         public IActionResult GetAuthoriseInfo()
         {
-            var email = HttpContext.User.Identity.Name;
+            var email = HttpContext.User.Identity!.Name;
             var user = _context.Users.FirstOrDefault(a => a.Email == email);
             if (user == null)
                 return BadRequest("user null");

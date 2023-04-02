@@ -26,7 +26,7 @@ var app = builder.Build();
 using (var scope =
   app.Services.CreateScope())
 using (var context = scope.ServiceProvider.GetService<AppDbContext>())
-    context.Database.Migrate();
+    context!.Database.Migrate();
 
 if (!app.Environment.IsDevelopment())
 {

@@ -17,11 +17,11 @@ namespace minitodo.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] TaskCreate task)
         {
-            if (!ModelState.IsValid)
+            if (task == null || !ModelState.IsValid)
             {
                 return BadRequest("Bad content");
             }
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
             int userId = user.Id;
@@ -53,7 +53,7 @@ namespace minitodo.Controllers
             {
                 return BadRequest("Bad content");
             }
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
             int userId = user.Id;
@@ -72,12 +72,12 @@ namespace minitodo.Controllers
         [HttpPost]
         public IActionResult Edit([FromBody] TaskEdit taskInfo)
         {
-            if (!ModelState.IsValid || taskInfo.TaskId == 0)
+            if (!ModelState.IsValid || taskInfo == null || taskInfo.TaskId == 0)
             {
                 return BadRequest("Bad content");
             }
 
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
             
@@ -98,12 +98,12 @@ namespace minitodo.Controllers
         [HttpGet]
         public IActionResult GetAll([FromBody] GetTask groupInfo)
         {
-            if (groupInfo.GroupId == 0)
+            if (groupInfo == null || groupInfo.GroupId == 0)
             {
                 return BadRequest("Incorrect parametr");
             }
 
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
 
@@ -131,12 +131,12 @@ namespace minitodo.Controllers
         [HttpPost]
         public IActionResult GetConfirmed([FromBody] GetTask groupInfo)
         {
-            if (groupInfo.GroupId == 0)
+            if (groupInfo == null || groupInfo.GroupId == 0)
             {
                 return BadRequest("Incorrect parametr");
             }
 
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
 
@@ -171,7 +171,7 @@ namespace minitodo.Controllers
                 return BadRequest("Incorrect parametr");
             }
 
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
 
@@ -202,7 +202,7 @@ namespace minitodo.Controllers
         public IActionResult GetFavorited()
         {
 
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
 
@@ -226,12 +226,12 @@ namespace minitodo.Controllers
         [HttpPost]
         public IActionResult SetFavorited([FromBody]SetTask taskInfo)
         {
-            if (taskInfo.TaskId == 0)
+            if (taskInfo == null || taskInfo.TaskId == 0)
             {
                 return BadRequest("Incorrect parametr");
             }
 
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
 
@@ -246,19 +246,17 @@ namespace minitodo.Controllers
             db.SaveChanges();
 
             return Ok();
-            // AllFavTasks
-            //db.Groups.Include(g=>g.Tasks).ToList().ForEach(g=>favTasks.AddRange(g.Tasks.Where(t=>t.IsFavorite == true)));
         }
 
         [Authorize]
         [HttpPost]
         public IActionResult SetConfirmed([FromBody] SetTask taskInfo)
         {
-            if (taskInfo.TaskId == 0)
+            if (taskInfo == null || taskInfo.TaskId == 0)
             {
                 return BadRequest("Incorrect parametr");
             }
-            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == HttpContext.User.Identity!.Name);
             if (user == null)
                 return BadRequest("User null");
 
