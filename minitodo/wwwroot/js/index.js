@@ -18,7 +18,6 @@ function DeleteTaskHandler() {
         })
     }).done(function (data) {
         task.remove();
-        console.log("Task deleted", data);
     }).fail(function (xhr, textStatus) {
         alert(xhr.responseText);
     });
@@ -42,8 +41,6 @@ function ConfirmClick() {
 
         PrintConfTasks(temp_data);
         task.remove();        
-
-        console.log("Task confirmed", data);
     }).fail(function (xhr, textStatus) {
         alert(xhr.responseText);
     });
@@ -59,10 +56,6 @@ function TaskCreateHandler() {
         return;
     }
 
-    console.log(JSON.stringify({
-        TaskTitle: taskTitle,
-        GroupId: Number(groupId)
-    }));
     $.ajax({
         url: "Task/Create",
         type: "POST",
@@ -73,7 +66,6 @@ function TaskCreateHandler() {
             GroupId: Number(groupId)
         })
     }).done(function (data) {
-        console.log("Task created", data);
         $(".name-task-input").val('');
         UpdateNotConfTasks(data);
 
@@ -108,7 +100,6 @@ function StarClick() {
         
     }
     var taskId = $(this).closest(".noconf-task").attr("id");
-    console.log("taslid",taskId);
      ChangeStarState(taskId);
 }
 
@@ -120,8 +111,6 @@ function ChangeStarState(taskId) {
         data: JSON.stringify({
             TaskId: Number(taskId)
         })
-    }).done(function (data) {
-        console.log("Star state changed", data);
     }).fail(function (xhr, textStatus) {
         alert(xhr.responseText);
     });
