@@ -14,7 +14,6 @@
 async function SetInfoUser() {
     $.post("User/GetAuthoriseInfo")
         .done(function (data) {
-            console.log(data.name);
             $('.user-name').text(data.name + " " + data.surname);
             $('.user-email').text(data.email);
         }).fail(function (xhr) {
@@ -28,7 +27,6 @@ async function FavoriteShow() {
     $(".group-name").removeClass("d-none");
     $(".new-task-input").addClass("d-none");
     $(".conf-task-drop").addClass("d-none");
-    //conf-task-drop
 
     ClearTasks();
 
@@ -37,7 +35,6 @@ async function FavoriteShow() {
         type: "GET",
         contentType: "application/json; charset=utf-8",
     }).done(function (data) {
-        console.log("Ok favorited!", data);
 
         if (data.length == 0) {
             PrintFavoritedEmptyMsg();
@@ -66,7 +63,6 @@ function PrintGroupEmptyMsg() {
 
 
 async function SelectItem() {
-    //var idGroup = $(this).parent().attr("id");
     var idGroup = $(this).closest('.group-item').attr("id");
 
 
@@ -114,22 +110,12 @@ async function SelectItem() {
             GroupId: Number(idGroup)
         })
     }).done(function (data) {
-        console.log("Ok!!!!!", data);
         for (let i = 0; i < data.length; i++) {
             PrintConfTasks(data[i]);
         }
     }).fail(function (xhr) {
         alert(xhr.responseText);
     });
-
-
-
-    //$.post("Task/GetNotConfirmed", { GroupId: Number(idGroup)}).done(function (data, status) {
-    //    console.log("Ok get noconf tasks");
-    //    console.log(data);
-    //});
-
-    console.log(idGroup);
 }
 function ClearTasks() {
     var temp = $(".noconf-task-temp").clone();
@@ -173,16 +159,13 @@ function PrintNotConfTasks(data) {
 function SetStarState(task, state) {
     var star = task.find(".star-toggle");
 
-    console.log("state", state);
     if (state === true) {
         if (star.hasClass("favorited") == false) {
-            console.log("asdasdsa");
             star.addClass("favorited");
             star.children().attr("src", "/png/Star.png");
         }
     } else {     
         if (star.hasClass("favorited") == true) {
-            console.log("Tut!!!");
             star.removeClass("favorited");
             star.children().attr("src", "/png/unStar.png");
         }
@@ -193,8 +176,6 @@ async function AddGroupHandler() {
     var groupName = $("#name-input").val();
     var answer = $.post("Group/Create", { nameGroup: groupName })
         .done(function (data, statusText) {
-            console.log("ok " + groupName);
-            console.log(data);
             AddGroupToList(data);
         }).fail(function (xhr, textStatus, errorThrown) { alert("error: " + xhr.responseText); })
         ;
@@ -204,11 +185,8 @@ async function AddGroupHandler() {
 
 function DeleteItem() {
     var idDel = $(this).attr("id");
-    console.log("idDel", idDel);
-    console.log('ddfgdg');
     $.post("Group/Delete", { id: idDel })
         .done(function (data, statusText) {
-            console.log("ok " + idDel);
         }).fail(function (xhr, textStatus, errorThrown) { alert("error: " + xhr.responseText); })
         ;
     $(".groups").children("#" + idDel).remove();
@@ -217,7 +195,6 @@ function DeleteItem() {
  function AddGroupToList(groupJson)
 {
      var group = $(".group-example").clone();
-     console.log(groupJson);
      group.find('.name-group').text(groupJson.name);
      group.attr('id', groupJson.id);
      group.find('.name-group').attr('id', groupJson.id);
@@ -244,23 +221,19 @@ async function returnToDefaultPanel(name, id) {
 async function SaveEditGroup() {
     var newNameGroup = $(this).closest(".edit-panel").children('.form-control').val();
     var idGroup = $(this).closest(".edit-panel").attr("id");
-    console.log(idGroup);
 
     $.post("Group/Edit", { id: idGroup, nameGroup: newNameGroup })
         .done(function (data, statusText) {
-            console.log("ok " + data);
             returnToDefaultPanel(data, idGroup);
         }).fail(function (xhr, textStatus, errorThrown) { alert("error: " + xhr.responseText); })
         ;
 }
 async function GetAllGroups() {
-    console.log('sdfsf');
     $.get("Group/Read")
         .done(function (data, statusText) {
             if (data.length == 0) {
                 ShowNoGroupsMsg();
             } 
-            console.log(data);
             for (let i = 0; i < data.length; i++) {
                 AddGroupToList(data[i]);
             }
