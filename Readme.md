@@ -1,11 +1,11 @@
 # Minitodo
-![Главная страница](https://github.com/XeeRooX/minitodo/blob/master/minitodo/readmeImages/screen.png "Главная")
-## Установка и запуск
-Для запуска Docker контейнера используйте следующие команды:
+![Р“Р»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°](https://github.com/XeeRooX/minitodo/blob/master/minitodo/readmeImages/screen.png "Р“Р»Р°РІРЅР°СЏ")
+## РЈСЃС‚Р°РЅРѕРІРєР° Рё Р·Р°РїСѓСЃРє
+Р”Р»СЏ Р·Р°РїСѓСЃРєР° Docker РєРѕРЅС‚РµР№РЅРµСЂР° РёСЃРїРѕР»СЊР·СѓР№С‚Рµ СЃР»РµРґСѓСЋС‰РёРµ РєРѕРјР°РЅРґС‹:
 ```
 git clone https://github.com/XeeRooX/minitodo.git
 cd ./minitodo
 docker compose up
 ```
-Далее в браузере перейдите по следующему адресу:
+Р”Р°Р»РµРµ РІ Р±СЂР°СѓР·РµСЂРµ РїРµСЂРµР№РґРёС‚Рµ РїРѕ СЃР»РµРґСѓСЋС‰РµРјСѓ Р°РґСЂРµСЃСѓ:
 ``` http://localhost:5000 ```
